@@ -26,7 +26,7 @@ function Medicines(props) {
 
 
     const handleSubmit = () => {
-        console.log(name,price,quantity,expiry);
+        // console.log(name,price,quantity,expiry);
      
 
         let data = {
@@ -36,6 +36,19 @@ function Medicines(props) {
             quantity,
             expiry
         }
+        let medicinesdata = JSON.parse(localStorage.getItem('Medicines'));
+
+        let Datamedicine =[];
+
+        if(medicinesdata === null){
+            localStorage.setItem('Medicines' , JSON.stringify([data]));
+            console.log(Datamedicine);
+        }else{
+            medicinesdata.push(data)
+            localStorage.setItem('Medicines', JSON.stringify(medicinesdata));
+        }
+
+
         localStorage.setItem("Medicines",JSON.stringify(data));
         console.log(data);
 
