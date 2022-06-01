@@ -49,8 +49,7 @@ function Medicines(props) {
         }
 
 
-        localStorage.setItem("Medicines",JSON.stringify(data));
-        console.log(data);
+    
 
         handleClose();
         setName('');
