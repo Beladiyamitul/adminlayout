@@ -7,25 +7,36 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DataGrid } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 function Medicines(props) {
 
     const [open, setOpen] = useState(false);
+    const [dopen, setDOpen] = useState(false);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [expiry, setExpiry] = useState('');
     const [datamed, setDatamed] = useState([]);
+    const [did, setDid] = useState("");
 
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    const handleDOpen = (id) => {
+        setDOpen(true);
+        setDid(id);
+    };
+
     const handleClose = () => {
         setOpen(false);
+        setDOpen(false);
     };
+   
 
 
     const handleSubmit = () => {
@@ -54,25 +65,37 @@ function Medicines(props) {
         setName('');
         setPrice('');
         setQuantity('');
-        setExpiry(''); 
+        setExpiry('');
 
-        
+
 
     }
     const getData = () => {
         let getMedData = JSON.parse(localStorage.getItem('Medicines'));
 
-        if (getMedData !== null){
+        if (getMedData !== null) {
             setDatamed(getMedData);
         }
 
-    }   
+    }
 
     useEffect(
         () => {
             getData();
         },
-    [])
+        [])
+
+
+    const handleDelete = () => {
+        let removedata = JSON.parse(localStorage.getItem("Medicines"));
+
+        let filterdata = removedata.filter((r, i) => r.id !== did);
+
+        localStorage.setItem("Medicines", JSON.stringify(filterdata));
+        getData();
+        setDOpen(false);
+
+    }
 
 
     const columns = [
@@ -81,9 +104,20 @@ function Medicines(props) {
         { field: 'price', headerName: 'Price', width: 130 },
         { field: 'quantity', headerName: 'Quantity', width: 130 },
         { field: 'expiry', headerName: 'Expiry', width: 130 },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 130,
+            renderCell: (params) => {
+                return (
+                    <Button startIcon={<DeleteIcon />} onClick={() =>handleDOpen(params.id)}></Button>
+                )
+            }
+
+        },
     ];
 
-    
+
 
     return (
         <div>
@@ -148,10 +182,29 @@ function Medicines(props) {
                         onChange={(e) => setExpiry(e.target.value)}
 
                     />
+
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleSubmit}>Submit</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                open={dopen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are You Sure Delete Data?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={() => handleDelete()} autoFocus>
+                        Yes
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>
