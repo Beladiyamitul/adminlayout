@@ -18,6 +18,7 @@ function Doctor(props) {
 
     const [open, setOpen] = useState(false);
     const [docopen, setDocopen] = useState(false);
+    const [docedit, setDocedit] = useState(false);
     const [name , setName] = useState('');
     const [email , setEmail] = useState('');
     const [sallery, setSallery] = useState('');
@@ -29,6 +30,9 @@ function Doctor(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
+    const handleClickEditOpen = () => {
+        setDocedit(true);
+    };
     const handleDClickOpen = (id) => {
         setDocopen(true);
         setDocdid(id);
@@ -39,6 +43,8 @@ function Doctor(props) {
     const handleClose = () => {
         setOpen(false);
         setDocopen(false);
+        setDocedit(false);
+
     };
 
     let schema = yup.object().shape({
@@ -78,7 +84,6 @@ function Doctor(props) {
                 experience
             }
 
-            console.log(docdata);
             let newdata = JSON.parse(localStorage.getItem("doctor"));
             console.log(newdata);
 
@@ -139,7 +144,7 @@ function Doctor(props) {
                 
                 <Button startIcon={<DeleteIcon />} onClick={() =>handleDClickOpen(params.id)}></Button>
                 
-                <IconButton aria-label="delete">
+                <IconButton aria-label="edit" onClick={()=>handleClickEditOpen()}>
                 <ModeEditIcon />
               </IconButton>
                 </>
@@ -247,6 +252,91 @@ function Doctor(props) {
                         <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
                             <Button type="submit">Submit</Button>
+                        </DialogActions>
+                    </Form>
+                </Formik>
+            </Dialog>
+
+            <Dialog open={docedit} onClose={handleClose}>
+                <DialogTitle>Empoyee Data</DialogTitle>
+                <Formik value={formik}>
+                    <Form key={formik} onSubmit={formik.handleSubmit}>
+                        <DialogContent>
+
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                name="name"
+                                label="Employrr Name"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            {
+                                formik.errors.name ? <p>{formik.errors.name}</p> : null
+                            }
+
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="email"
+                                name="email"
+                                label="Employrr Email"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+
+                            />
+                            {
+                                formik.errors.email ? <p>{formik.errors.email}</p> : null
+                            }
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="sallery"
+                                name="sallery"
+                                label="Employrr Sallery"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="post"
+                                name="post"
+                                label="Employrr Post"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            {
+                                formik.errors.post ? <p>{formik.errors.post}</p> : null
+                            }
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="experience"
+                                name="experience"
+                                label="Employrr Experience"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            {
+                                formik.errors.experience ? <p>{formik.errors.experience}</p> : null
+                            }
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button type="submit">Update</Button>
                         </DialogActions>
                     </Form>
                 </Formik>

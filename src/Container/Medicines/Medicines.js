@@ -8,6 +8,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
+import * as yup from 'yup';
+import { useFormik, Formik, Form } from 'formik';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import IconButton from '@mui/material/IconButton';
+
 
 
 
@@ -15,6 +20,7 @@ function Medicines(props) {
 
     const [open, setOpen] = useState(false);
     const [dopen, setDOpen] = useState(false);
+    const [editopen, setEditopen] = useState(false);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -26,6 +32,9 @@ function Medicines(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
+    const handleClickEditOpen = () => {
+        setEditopen(true);
+    };
 
     const handleDOpen = (id) => {
         setDOpen(true);
@@ -35,20 +44,21 @@ function Medicines(props) {
     const handleClose = () => {
         setOpen(false);
         setDOpen(false);
+        setEditopen(false);
     };
-   
 
 
-    const handleSubmit = () => {
+
+    const handleSubmit = (values) => {
         // console.log(name,price,quantity,expiry);
 
 
         let data = {
             id: Math.floor(Math.random() * 1000),
-            name,
-            price,
-            quantity,
-            expiry
+            name: values.name,
+            price: values.price,
+            quantity: values.quantity,
+            expiry: values.expiry
         }
         let medicinesdata = JSON.parse(localStorage.getItem('Medicines'));
 
@@ -110,12 +120,43 @@ function Medicines(props) {
             width: 130,
             renderCell: (params) => {
                 return (
-                    <Button startIcon={<DeleteIcon />} onClick={() =>handleDOpen(params.id)}></Button>
+                    <>
+                        <Button startIcon={<DeleteIcon />} onClick={() => handleDOpen(params.id)}></Button>
+
+                        <IconButton aria-label="edit" onClick={()=>handleClickEditOpen()}><ModeEditIcon /></IconButton>
+
+                    </>
                 )
             }
 
         },
     ];
+
+    let schema = yup.object().shape({
+        name: yup.string().required("please enter medicine name"),
+        price: yup.string().required("please enter medicine price"),
+        quantity: yup.string().required("please enter medicine quantity"),
+        expiry: yup.string().required("please enter medicine expiry"),
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            price: '',
+            quantity: '',
+            expiry: ''
+        },
+        validationSchema: schema,
+        onSubmit: values => {
+            // alert(JSON.stringify(values, null, 2));
+            handleSubmit(values);
+
+        },
+    });
+
+
+
+
 
 
 
@@ -137,58 +178,63 @@ function Medicines(props) {
 
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add Medicines</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        name="name"
-                        label="Medicines Name"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setName(e.target.value)}
 
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="price"
-                        name="price"
-                        label="Medicines price"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setPrice(e.target.value)}
+                <Formik values={formik}>
+                    <Form key={formik} onSubmit={formik.handleSubmit}>
+                        <DialogContent>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                name="name"
+                                label="Medicines Name"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+                            />
+                            {formik.errors.name ? <p>{formik.errors.name}</p> : null}
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="price"
+                                name="price"
+                                label="Medicines price"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
 
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="quantity"
-                        name="quantity"
-                        label="Medicines quantity"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setQuantity(e.target.value)}
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="quantity"
+                                name="quantity"
+                                label="Medicines quantity"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
 
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="expiry"
-                        name="expiry"
-                        label="Medicines expiry"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setExpiry(e.target.value)}
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="expiry"
+                                name="expiry"
+                                label="Medicines expiry"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
 
-                    />
+                            />
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button type='submit'>Submit</Button>
+                            </DialogActions>
 
+                        </DialogContent>
+                    </Form>
+                </Formik>
 
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Submit</Button>
-                </DialogActions>
             </Dialog>
 
             <Dialog
@@ -206,6 +252,68 @@ function Medicines(props) {
                         Yes
                     </Button>
                 </DialogActions>
+            </Dialog>
+
+
+            <Dialog open={editopen} onClose={handleClose}>
+                <DialogTitle>Edit Medicines</DialogTitle>
+
+                <Formik values={formik}>
+                    <Form key={formik} onSubmit={formik.handleSubmit}>
+                        <DialogContent>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                name="name"
+                                label="Medicines Name"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+                            />
+                            {formik.errors.name ? <p>{formik.errors.name}</p> : null}
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="price"
+                                name="price"
+                                label="Medicines price"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="quantity"
+                                name="quantity"
+                                label="Medicines quantity"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="expiry"
+                                name="expiry"
+                                label="Medicines expiry"
+                                fullWidth
+                                variant="standard"
+                                onChange={formik.handleChange}
+
+                            />
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button type='submit'>Submit</Button>
+                            </DialogActions>
+
+                        </DialogContent>
+                    </Form>
+                </Formik>
+
             </Dialog>
         </div>
     );
