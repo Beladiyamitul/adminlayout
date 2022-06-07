@@ -131,7 +131,7 @@ function Medicines(props) {
 
         },
     ];
-
+    
     let schema = yup.object().shape({
         name: yup.string().required("please enter medicine name"),
         price: yup.string().required("please enter medicine price"),

@@ -65,7 +65,6 @@ function Doctor(props) {
         validationSchema: schema,
         onSubmit: values => {
             //   alert(JSON.stringify(values, null, 2));
-
             const {
                 name,
                 email,
