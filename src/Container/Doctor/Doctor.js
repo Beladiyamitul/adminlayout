@@ -73,7 +73,6 @@ function Doctor(props) {
                 experience
             } = values;
 
-
             const docdata = {
                 id: Math.floor(Math.random() * 1000),
                 name,
