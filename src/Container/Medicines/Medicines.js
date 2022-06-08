@@ -20,21 +20,21 @@ function Medicines(props) {
 
     const [open, setOpen] = useState(false);
     const [dopen, setDOpen] = useState(false);
-    const [editopen, setEditopen] = useState(false);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [expiry, setExpiry] = useState('');
     const [datamed, setDatamed] = useState([]);
     const [did, setDid] = useState("");
+    const [update, setUpdata] = useState(false);
+    const [udate, setUdata] = useState();
+    const [uid, setUid] = useState();
 
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-    const handleClickEditOpen = () => {
-        setEditopen(true);
-    };
+   
 
     const handleDOpen = (id) => {
         setDOpen(true);
@@ -44,9 +44,25 @@ function Medicines(props) {
     const handleClose = () => {
         setOpen(false);
         setDOpen(false);
-        setEditopen(false);
     };
 
+
+    const handleClickEditOpen = (params) => {
+        setOpen(true);
+        console.log(params.row);
+        formik.setValues({
+            name : params.row.name,
+            price : params.row.price,
+            quantity : params.row.quantity,
+            expiry : params.row.expiry,
+
+        }
+        )
+        setUid(params.id);
+        console.log(params.id);
+        setUpdata(true);
+        
+    };
 
 
     const handleSubmit = (values) => {
@@ -123,7 +139,7 @@ function Medicines(props) {
                     <>
                         <Button startIcon={<DeleteIcon />} onClick={() => handleDOpen(params.id)}></Button>
 
-                        <IconButton aria-label="edit" onClick={()=>handleClickEditOpen()}><ModeEditIcon /></IconButton>
+                        <IconButton aria-label="edit" onClick={()=>handleClickEditOpen(params)}><ModeEditIcon /></IconButton>
 
                     </>
                 )
@@ -146,16 +162,52 @@ function Medicines(props) {
             expiry: ''
         },
         validationSchema: schema,
-        onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
-            handleSubmit(values);
+        onSubmit : (values, { resetForm }) => {
 
+            if (update) {
+                handleUpdatedata(values);
+            }else{
+                handleSubmit(values);
+            }
+            // alert(JSON.stringify(values, null, 2));
+
+            resetForm();
         },
     });
 
 
 
+    const handleUpdatedata = (values) => {
+        console.log(values);
 
+        let udata = JSON.parse(localStorage.getItem("Medicines"));
+
+        console.log(udata);
+
+        let editdata = udata.map((e) =>{
+
+            if (e.id === uid) {
+                console.log(uid);
+                return(
+                   {uid, ...values}
+                 ) 
+            }else{
+                return(
+                    e
+                 ) 
+            }
+             
+        }
+        );
+
+        localStorage.setItem("Medicines", JSON.stringify(editdata));
+
+        
+        getData();
+        setOpen(false);
+        setDOpen(false);
+
+    }
 
 
 
@@ -186,6 +238,7 @@ function Medicines(props) {
                                 margin="dense"
                                 id="name"
                                 name="name"
+                                value={formik.values.name}
                                 label="Medicines Name"
                                 fullWidth
                                 variant="standard"
@@ -197,6 +250,7 @@ function Medicines(props) {
                                 margin="dense"
                                 id="price"
                                 name="price"
+                                value={formik.values.price}
                                 label="Medicines price"
                                 fullWidth
                                 variant="standard"
@@ -208,6 +262,7 @@ function Medicines(props) {
                                 margin="dense"
                                 id="quantity"
                                 name="quantity"
+                                value={formik.values.quantity}
                                 label="Medicines quantity"
                                 fullWidth
                                 variant="standard"
@@ -219,6 +274,7 @@ function Medicines(props) {
                                 margin="dense"
                                 id="expiry"
                                 name="expiry"
+                                value={formik.values.expiry}
                                 label="Medicines expiry"
                                 fullWidth
                                 variant="standard"
@@ -254,66 +310,6 @@ function Medicines(props) {
             </Dialog>
 
 
-            <Dialog open={editopen} onClose={handleClose}>
-                <DialogTitle>Edit Medicines</DialogTitle>
-
-                <Formik values={formik}>
-                    <Form key={formik} onSubmit={formik.handleSubmit}>
-                        <DialogContent>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                name="name"
-                                label="Medicines Name"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-                            />
-                            {formik.errors.name ? <p>{formik.errors.name}</p> : null}
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="price"
-                                name="price"
-                                label="Medicines price"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="quantity"
-                                name="quantity"
-                                label="Medicines quantity"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="expiry"
-                                name="expiry"
-                                label="Medicines expiry"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            <DialogActions>
-                                <Button onClick={handleClose}>Cancel</Button>
-                                <Button type='submit'>Submit</Button>
-                            </DialogActions>
-
-                        </DialogContent>
-                    </Form>
-                </Formik>
-
-            </Dialog>
         </div>
     );
 }
