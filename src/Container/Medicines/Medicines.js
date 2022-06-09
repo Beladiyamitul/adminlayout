@@ -189,12 +189,11 @@ function Medicines(props) {
             if (e.id === uid) {
                 console.log(uid);
                 return(
-                   {uid, ...values}
+                   {id: uid, ...values}
                  ) 
             }else{
-                return(
-                    e
-                 ) 
+                return e;
+                 
             }
              
         }
@@ -257,6 +256,8 @@ function Medicines(props) {
                                 onChange={formik.handleChange}
 
                             />
+                            {formik.errors.price ? <p>{formik.errors.price}</p> : null}
+                            
                             <TextField
                                 autoFocus
                                 margin="dense"
@@ -269,6 +270,7 @@ function Medicines(props) {
                                 onChange={formik.handleChange}
 
                             />
+                            {formik.errors.quantity ? <p>{formik.errors.quantity}</p> : null}
                             <TextField
                                 autoFocus
                                 margin="dense"
@@ -281,6 +283,7 @@ function Medicines(props) {
                                 onChange={formik.handleChange}
 
                             />
+                            {formik.errors.expiry ? <p>{formik.errors.expiry}</p> : null}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 <Button type='submit'>Submit</Button>

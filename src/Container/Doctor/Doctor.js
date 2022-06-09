@@ -18,7 +18,6 @@ function Doctor(props) {
 
     const [open, setOpen] = useState(false);
     const [docopen, setDocopen] = useState(false);
-    const [docedit, setDocedit] = useState(false);
     const [name , setName] = useState('');
     const [email , setEmail] = useState('');
     const [sallery, setSallery] = useState('');
@@ -26,24 +25,39 @@ function Doctor(props) {
     const [experience, setExperience] = useState('');
     const [datadoc , setDatadoc] = useState('');
     const [docdid , setDocdid] = useState('');
+    const [update , setUpdate] = useState('');
+    const [eid , setEid] = useState('');
+
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-    const handleClickEditOpen = () => {
-        setDocedit(true);
-    };
+   
     const handleDClickOpen = (id) => {
         setDocopen(true);
         setDocdid(id);
       
     };
 
+    const handleClickEditOpen = (params) => {
+        console.log(params.row);
+        setOpen(true);
+
+        formik.setValues({
+            name: params.row.name,
+            email: params.row.email,
+            sallery: params.row.sallery,
+            post: params.row.post,
+            experience: params.row.experience,
+        })
+        setEid(params.id);
+        setUpdate(true);
+    };
 
     const handleClose = () => {
         setOpen(false);
         setDocopen(false);
-        setDocedit(false);
+        
 
     };
 
@@ -63,7 +77,12 @@ function Doctor(props) {
             experience: ''
         },
         validationSchema: schema,
-        onSubmit: values => {
+        onSubmit: (values, { resetForm }) => {
+
+            if (update) {
+                handleEdit(values)   
+            }else{
+
             //   alert(JSON.stringify(values, null, 2));
             const {
                 name,
@@ -95,11 +114,40 @@ function Doctor(props) {
             handleClose();
             getData();
             // console.log(data);
-
+            resetForm();
+        }
+      
         },
-
+        
        
     });
+
+
+    const handleEdit = (values) =>{
+        console.log(values)
+
+        let eData = JSON.parse(localStorage.getItem("doctor"));
+        console.log(eData);
+
+        let editData = eData.map((u) => {
+            if (u.id == eid) {
+                return(
+                    {id: eid , ...values}
+                )
+            }else{
+                return u;
+            }
+        });
+
+        localStorage.setItem("doctor", JSON.stringify(editData));
+        getData();
+        setOpen(false);
+        setUpdate(false);
+        setEid();
+
+    }
+
+
     const getData = () => {
         let getDocData =JSON.parse( localStorage.getItem('doctor'));
 
@@ -142,12 +190,11 @@ function Doctor(props) {
                 
                 <Button startIcon={<DeleteIcon />} onClick={() =>handleDClickOpen(params.id)}></Button>
                 
-                <IconButton aria-label="edit" onClick={()=>handleClickEditOpen()}>
+                <IconButton aria-label="edit" onClick={()=>handleClickEditOpen(params)}>
                 <ModeEditIcon />
               </IconButton>
                 </>
                
-
             )
          }
         },
@@ -181,6 +228,7 @@ function Doctor(props) {
                                 margin="dense"
                                 id="name"
                                 name="name"
+                                value={formik.values.name}
                                 label="Employrr Name"
                                 fullWidth
                                 variant="standard"
@@ -196,6 +244,7 @@ function Doctor(props) {
                                 margin="dense"
                                 id="email"
                                 name="email"
+                                value={formik.values.email}
                                 label="Employrr Email"
                                 fullWidth
                                 variant="standard"
@@ -211,6 +260,7 @@ function Doctor(props) {
                                 margin="dense"
                                 id="sallery"
                                 name="sallery"
+                                value={formik.values.sallery}
                                 label="Employrr Sallery"
                                 fullWidth
                                 variant="standard"
@@ -223,6 +273,7 @@ function Doctor(props) {
                                 margin="dense"
                                 id="post"
                                 name="post"
+                                value={formik.values.post}
                                 label="Employrr Post"
                                 fullWidth
                                 variant="standard"
@@ -237,6 +288,7 @@ function Doctor(props) {
                                 margin="dense"
                                 id="experience"
                                 name="experience"
+                                value={formik.values.experience}
                                 label="Employrr Experience"
                                 fullWidth
                                 variant="standard"
@@ -255,90 +307,7 @@ function Doctor(props) {
                 </Formik>
             </Dialog>
 
-            <Dialog open={docedit} onClose={handleClose}>
-                <DialogTitle>Empoyee Data</DialogTitle>
-                <Formik value={formik}>
-                    <Form key={formik} onSubmit={formik.handleSubmit}>
-                        <DialogContent>
-
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                name="name"
-                                label="Employrr Name"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            {
-                                formik.errors.name ? <p>{formik.errors.name}</p> : null
-                            }
-
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="email"
-                                name="email"
-                                label="Employrr Email"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-
-                            />
-                            {
-                                formik.errors.email ? <p>{formik.errors.email}</p> : null
-                            }
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="sallery"
-                                name="sallery"
-                                label="Employrr Sallery"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="post"
-                                name="post"
-                                label="Employrr Post"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            {
-                                formik.errors.post ? <p>{formik.errors.post}</p> : null
-                            }
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="experience"
-                                name="experience"
-                                label="Employrr Experience"
-                                fullWidth
-                                variant="standard"
-                                onChange={formik.handleChange}
-
-                            />
-                            {
-                                formik.errors.experience ? <p>{formik.errors.experience}</p> : null
-                            }
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button type="submit">Update</Button>
-                        </DialogActions>
-                    </Form>
-                </Formik>
-            </Dialog>
+           
 
             <Dialog
                 open={docopen}
