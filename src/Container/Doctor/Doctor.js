@@ -252,9 +252,9 @@ function Doctor(props) {
 
 
                             />
-                            {
-                                formik.errors.email ? <p>{formik.errors.email}</p> : null
-                            }
+                                {
+                                    formik.errors.email ? <p>{formik.errors.email}</p> : null
+                                }
                             <TextField
                                 autoFocus
                                 margin="dense"

@@ -87,7 +87,7 @@ function Medicines(props) {
         }
 
         handleClose();
-        getData();
+        getData();  
         setName('');
         setPrice('');
         setQuantity('');
