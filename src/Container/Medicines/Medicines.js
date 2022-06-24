@@ -29,12 +29,13 @@ function Medicines(props) {
     const [update, setUpdata] = useState(false);
     const [udate, setUdata] = useState();
     const [uid, setUid] = useState();
+    const [filterdata, setFilterdata] = useState([]);
 
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-   
+
 
     const handleDOpen = (id) => {
         setDOpen(true);
@@ -51,17 +52,17 @@ function Medicines(props) {
         setOpen(true);
         console.log(params.row);
         formik.setValues({
-            name : params.row.name,
-            price : params.row.price,
-            quantity : params.row.quantity,
-            expiry : params.row.expiry,
+            name: params.row.name,
+            price: params.row.price,
+            quantity: params.row.quantity,
+            expiry: params.row.expiry,
 
         }
         )
         setUid(params.id);
         console.log(params.id);
         setUpdata(true);
-        
+
     };
 
 
@@ -87,7 +88,7 @@ function Medicines(props) {
         }
 
         handleClose();
-        getData();  
+        getData();
         setName('');
         setPrice('');
         setQuantity('');
@@ -139,7 +140,7 @@ function Medicines(props) {
                     <>
                         <Button startIcon={<DeleteIcon />} onClick={() => handleDOpen(params.id)}></Button>
 
-                        <IconButton aria-label="edit" onClick={()=>handleClickEditOpen(params)}><ModeEditIcon /></IconButton>
+                        <IconButton aria-label="edit" onClick={() => handleClickEditOpen(params)}><ModeEditIcon /></IconButton>
 
                     </>
                 )
@@ -162,11 +163,11 @@ function Medicines(props) {
             expiry: ''
         },
         validationSchema: schema,
-        onSubmit : (values, { resetForm }) => {
+        onSubmit: (values, { resetForm }) => {
 
             if (update) {
                 handleUpdatedata(values);
-            }else{
+            } else {
                 handleSubmit(values);
             }
             // alert(JSON.stringify(values, null, 2));
@@ -184,24 +185,24 @@ function Medicines(props) {
 
         console.log(udata);
 
-        let editdata = udata.map((e) =>{
+        let editdata = udata.map((e) => {
 
             if (e.id === uid) {
                 console.log(uid);
-                return(
-                   {id: uid, ...values}
-                 ) 
-            }else{
+                return (
+                    { id: uid, ...values }
+                )
+            } else {
                 return e;
-                 
+
             }
-             
+
         }
         );
 
         localStorage.setItem("Medicines", JSON.stringify(editdata));
 
-        
+
         getData();
         setOpen(false);
         setDOpen(false);
@@ -209,16 +210,48 @@ function Medicines(props) {
     }
 
 
+    const handlesearch = (sermed) => {
+        console.log(sermed);
+        let medsearch = JSON.parse(localStorage.getItem("Medicines"))
+
+        let fdata = medsearch.filter((f) => (
+
+            f.id.toString().includes(sermed) ||
+            f.name.toString().includes(sermed) ||
+            f.price.toString().includes(sermed) ||
+            f.quantity.toString().includes(sermed) ||
+            f.expiry.toString().includes(sermed) 
+
+        ))
+        setFilterdata(fdata)
+        console.log(fdata);
+    }
+
+const filtermeddata = filterdata.length > 0 ? filterdata : datamed
 
     return (
         <div>
             <h1>Medicines Component</h1>
+
+            <TextField
+                autoFocus
+                margin="dense"
+                id="search"
+                name="search"
+                label="Search Medicines"
+                fullWidth
+                variant="standard"
+                onChange={(e) => handlesearch(e.target.value)}
+            />
+
+
+
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicines
             </Button>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={datamed}
+                    rows={filtermeddata}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
@@ -257,7 +290,7 @@ function Medicines(props) {
 
                             />
                             {formik.errors.price ? <p>{formik.errors.price}</p> : null}
-                            
+
                             <TextField
                                 autoFocus
                                 margin="dense"
