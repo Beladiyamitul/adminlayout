@@ -18,6 +18,7 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Medicines from '../../Container/Medicines/Medicines';
 import { NavLink } from 'react-router-dom';
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const drawerWidth = 240;
 
@@ -26,7 +27,8 @@ export default function Layout({children}) {
 
 let sidemenu=[
     {label:'Doctor', to:'/doctor' , icon:<LocalHospitalIcon/>},
-    {label:'Medicines', to:'/medicines' , icon:<VaccinesIcon/>}
+    {label:'Medicines', to:'/medicines' , icon:<VaccinesIcon/>},
+    {label:'Counter', to:'/counter' , icon:<HourglassTopIcon/>}
 
 ]
 
