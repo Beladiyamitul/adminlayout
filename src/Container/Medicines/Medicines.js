@@ -12,6 +12,8 @@ import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
+import { useDispatch } from 'react-redux';
+import { meddata } from '../../Redux/Acton/medicine.action';
 
 
 
@@ -106,8 +108,12 @@ function Medicines(props) {
 
     }
 
+    const dispatch = useDispatch();
+
     useEffect(
         () => {
+
+            dispatch(meddata())
             getData();
         },
         [])
