@@ -20,7 +20,7 @@ export const meddata = () => (dispatch) =>{
             error => {
               var errmess = new Error(error.message);
               throw errmess;
-            })
+            })  
             .then(response => response.json())
             .then(medicines => dispatch({type: Actiontype.GET_MEDICINE, payload: medicines}))
 

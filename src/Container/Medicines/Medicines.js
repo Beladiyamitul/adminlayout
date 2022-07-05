@@ -12,9 +12,8 @@ import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { meddata } from '../../Redux/Acton/medicine.action';
-
 
 
 
@@ -33,6 +32,9 @@ function Medicines(props) {
     const [uid, setUid] = useState();
     const [filterdata, setFilterdata] = useState([]);
 
+    const medicines = useSelector (state => state.medicine);
+
+    console.log(medicines);
 
     const handleClickOpen = () => {
         setOpen(true);
