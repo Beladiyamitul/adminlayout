@@ -34,7 +34,7 @@ function Medicines(props) {
 
     const medicines = useSelector (state => state.medicine);
 
-    console.log(medicines);
+    console.log(medicines.medicine);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -102,11 +102,9 @@ function Medicines(props) {
 
     }
     const getData = () => {
-        let getMedData = JSON.parse(localStorage.getItem('Medicines'));
-
-        if (getMedData !== null) {
-            setDatamed(getMedData);
-        }
+   
+            setDatamed(medicines.medicine);
+        
 
     }
 
@@ -238,7 +236,12 @@ function Medicines(props) {
 const filtermeddata = filterdata.length > 0 ? filterdata : datamed
 
     return (
-        <div>
+       <>
+        {
+            medicines.isLoading ?
+            <p>Loading...</p>
+            :
+            <div>
             <h1>Medicines Component</h1>
 
             <TextField
@@ -259,7 +262,7 @@ const filtermeddata = filterdata.length > 0 ? filterdata : datamed
             </Button>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={filtermeddata}
+                    rows={medicines.medicine}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
@@ -355,6 +358,12 @@ const filtermeddata = filterdata.length > 0 ? filterdata : datamed
 
 
         </div>
+        }
+       
+       
+       </>
+
+      
     );
 }
 

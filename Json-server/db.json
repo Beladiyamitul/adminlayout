@@ -3,31 +3,31 @@
     {
       "id": 1,
       "name": "jhho deo",
-      "experience": "1 year",
+      "experience":1,
       "sallery": 18000
     },
     {
       "id": 3,
       "name": "vishal",
-      "experience": "3 year",
+      "experience":2,
       "sallery": 34000
     },
     {
       "id": 4,
       "name": "jay",
-      "experience": "4 year",
+      "experience": 4,
       "sallery": 45000
     },
     {
       "id": 5,
       "name": "mask",
-      "experience": "1.5 year",
+      "experience": 1.5,
       "sallery": 21000
     },
     {
       "id": 6,
       "name": "vijay",
-      "experience": "4 year",
+      "experience":4,
       "sallery": 45000
     }
   ],
