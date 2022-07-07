@@ -1,41 +1,79 @@
 {
-  "Doctors": [
+  "Medicines": [
     {
-      "id": 1,
-      "name": "jhho deo",
-      "experience":1,
-      "sallery": 18000
+      "id": 101,
+      "name": "Abacavir",
+      "quantity": 25,
+      "price": 150,
+      "expiry": 2022,
+      "status": true
     },
     {
-      "id": 3,
-      "name": "vishal",
-      "experience":2,
-      "sallery": 34000
+      "id": 102,
+      "name": "Eltrombopag",
+      "quantity": 90,
+      "price": 550,
+      "expiry": 2021,
+      "status": true
     },
     {
-      "id": 4,
-      "name": "jay",
-      "experience": 4,
-      "sallery": 45000
+      "id": 103,
+      "name": "Meloxicam",
+      "quantity": 85,
+      "price": 450,
+      "expiry": 2025,
+      "status": false
     },
     {
-      "id": 5,
-      "name": "mask",
-      "experience": 1.5,
-      "sallery": 21000
+      "id": 104,
+      "name": "Allopurinol",
+      "quantity": 50,
+      "price": 600,
+      "expiry": 2023,
+      "status": true
     },
     {
-      "id": 6,
-      "name": "vijay",
-      "experience":4,
-      "sallery": 45000
+      "id": 105,
+      "name": "Phenytoin",
+      "quantity": 63,
+      "price": 250,
+      "expiry": 2021,
+      "status": false
+    },
+    {
+      "id": 403,
+      "name": "dgefg",
+      "price": "5",
+      "quantity": "5",
+      "expiry": "1"
+    },
+    {
+      "id": 404,
+      "name": "sfsfsf",
+      "price": "52",
+      "quantity": "5",
+      "expiry": "1"
+    },
+    {
+      "id": 489,
+      "name": "dgefjsif",
+      "price": "5",
+      "quantity": "5",
+      "expiry": "1"
+    },
+    {
+      "id": 675,
+      "name": "sfsfsfsdfs",
+      "price": "65",
+      "quantity": "10",
+      "expiry": "2022"
     }
   ],
   "comments": [
     {
       "id": 1,
       "body": "some comment",
-      "postId": 1
+      "postid": 1
     }
   ],
   "profile": {
