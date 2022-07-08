@@ -13,7 +13,7 @@ import { useFormik, Formik, Form } from 'formik';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicin, meddata } from '../../Redux/Acton/medicine.action';
+import { addMedicin, deleteMedicin, meddata } from '../../Redux/Acton/medicine.action';
 
 
 
@@ -123,11 +123,15 @@ function Medicines(props) {
 
 
     const handleDelete = () => {
-        let removedata = JSON.parse(localStorage.getItem("Medicines"));
+        // let removedata = JSON.parse(localStorage.getItem("Medicines"));
 
-        let filterdata = removedata.filter((r, i) => r.id !== did);
+        // let filterdata = removedata.filter((r, i) => r.id !== did);
 
-        localStorage.setItem("Medicines", JSON.stringify(filterdata));
+        // localStorage.setItem("Medicines", JSON.stringify(filterdata));
+
+        dispatch(deleteMedicin(did))
+        
+
         getData();
         setDOpen(false);
 

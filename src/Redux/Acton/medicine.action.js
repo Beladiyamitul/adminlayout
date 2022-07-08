@@ -78,6 +78,43 @@ export const addMedicin = (data) => (dispatch) => {
   }
 }
 
+export const deleteMedicin = (id) => (dispatch) => {
+  try {
+    dispatch(loadingMedicin())
+    setTimeout(function () {
+     return fetch(BASE_URL + 'Medicines/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    
+
+      })
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+          }
+        },
+          error => {
+            var errmess = new Error(error.message); 
+            throw errmess;
+          }
+        )
+        .then(response => response.json())
+        .then(medicine => dispatch({ type: Actiontype.DELETE_MEDICINE, payload: id }))
+
+        .catch((error) => dispatch(errorMedicin(error.message)) )
+    }, 2000)
+  
+  } catch (error) {
+    dispatch(errorMedicin(error.message));
+  }
+}
+
 
 export const loadingMedicin = () => (dispatch) => {
   dispatch({ type: Actiontype.LOADING_MEDICINE })
@@ -86,3 +123,4 @@ export const loadingMedicin = () => (dispatch) => {
 export const errorMedicin = (error) => (dispatch) =>{
   dispatch({type: Actiontype.ERROR_MEDICINE , payload:error})
 }
+
