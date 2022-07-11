@@ -122,7 +122,6 @@ function Medicines(props) {
         },
         [])
 
-
     const handleDelete = () => {
         // let removedata = JSON.parse(localStorage.getItem("Medicines"));
 

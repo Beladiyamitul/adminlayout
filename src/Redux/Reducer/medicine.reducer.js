@@ -48,6 +48,7 @@ export const medicineReducer = (state = initalstate, action) => {
                 error: ""
             }
 
+            
         case ActionType.UPDATE_MEDICINE:
             return {
                 ...state,

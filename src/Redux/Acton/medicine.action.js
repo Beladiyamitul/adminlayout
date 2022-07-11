@@ -97,6 +97,7 @@ export const deleteMedicin = (id) => (dispatch) => {
   }
 }
 
+
 export const updateMedicine = (data) => (dispatch) => {
   try {
     dispatch(loadingMedicin())
