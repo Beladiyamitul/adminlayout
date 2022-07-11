@@ -13,7 +13,7 @@ import { useFormik, Formik, Form } from 'formik';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicin, deleteMedicin, meddata } from '../../Redux/Acton/medicine.action';
+import { addMedicin, deleteMedicin, meddata, updateMedicine } from '../../Redux/Acton/medicine.action';
 
 
 
@@ -56,6 +56,7 @@ function Medicines(props) {
         setOpen(true);
         console.log(params.row);
         formik.setValues({
+            id : params.id,
             name: params.row.name,
             price: params.row.price,
             quantity: params.row.quantity,
@@ -192,28 +193,30 @@ function Medicines(props) {
 
 
     const handleUpdatedata = (values) => {
-        console.log(values);
+        // console.log(values);
 
-        let udata = JSON.parse(localStorage.getItem("Medicines"));
+        // let udata = JSON.parse(localStorage.getItem("Medicines"));
 
-        console.log(udata);
+        // console.log(udata);
 
-        let editdata = udata.map((e) => {
+        // let editdata = udata.map((e) => {
 
-            if (e.id === uid) {
-                console.log(uid);
-                return (
-                    { id: uid, ...values }
-                )
-            } else {
-                return e;
+        //     if (e.id === uid) {
+        //         console.log(uid);
+        //         return (
+        //             { id: uid, ...values }
+        //         )
+        //     } else {
+        //         return e;
 
-            }
+        //     }
 
-        }
-        );
+        // }
+        // );
 
-        localStorage.setItem("Medicines", JSON.stringify(editdata));
+        // localStorage.setItem("Medicines", JSON.stringify(editdata));
+
+        dispatch(updateMedicine(values))
 
 
         getData();

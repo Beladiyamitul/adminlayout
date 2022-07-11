@@ -10,11 +10,10 @@
     },
     {
       "id": 105,
-      "name": "Phenytoin",
-      "quantity": 63,
-      "price": 250,
-      "expiry": 2021,
-      "status": false
+      "name": "Phenytoin1",
+      "price": "2501",
+      "quantity": "631",
+      "expiry": "20211"
     },
     {
       "id": 404,

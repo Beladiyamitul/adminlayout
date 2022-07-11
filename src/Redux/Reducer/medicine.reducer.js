@@ -21,7 +21,7 @@ export const medicineReducer = (state = initalstate, action) => {
             return {
                 ...state,
                 isLoading: true,
-           
+
                 error: ""
             }
         case ActionType.GET_MEDICINE:
@@ -40,13 +40,28 @@ export const medicineReducer = (state = initalstate, action) => {
                 error: ""
             }
 
-            case ActionType.DELETE_MEDICINE:
-                return {
-                    ...state,
-                    isLoading: false,
-                    medicine: state.medicine.filter((d , i) => d.id !== action.payload),
-                    error: ""
-                }
+        case ActionType.DELETE_MEDICINE:
+            return {
+                ...state,
+                isLoading: false,
+                medicine: state.medicine.filter((d, i) => d.id !== action.payload),
+                error: ""
+            }
+
+        case ActionType.UPDATE_MEDICINE:
+            return {
+                ...state,
+                isLoading: false,
+                medicine: state.medicine.map((u) => {
+                    if (u.id === action.payload.id) {
+                        return action.payload
+                    }else{
+                        return u
+                    }
+
+                }) ,
+                error: ""
+            }
         case ActionType.ERROR_MEDICINE:
             return {
                 ...state,
