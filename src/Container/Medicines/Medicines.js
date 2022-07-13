@@ -213,6 +213,7 @@ function Medicines(props) {
         // }
         // );
 
+        
         // localStorage.setItem("Medicines", JSON.stringify(editdata));
 
         dispatch(updateMedicine(values))
