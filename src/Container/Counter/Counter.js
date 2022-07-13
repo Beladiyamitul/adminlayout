@@ -18,7 +18,6 @@ const handledecremet =() => {
 }
 
 
-
     return (
         <div>
             <button onClick={()=> handleincrement()}>+</button>

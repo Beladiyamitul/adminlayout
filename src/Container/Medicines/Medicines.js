@@ -227,9 +227,9 @@ function Medicines(props) {
 
     const handlesearch = (sermed) => {
         console.log(sermed);
-        let medsearch = JSON.parse(localStorage.getItem("Medicines"))
+        // let medsearch = JSON.parse(localStorage.getItem("Medicines"))
 
-        let fdata = medsearch.filter((f) => (
+        let fdata = medicines.medicine.filter((f) => (
 
             f.id.toString().includes(sermed) ||
             f.name.toString().includes(sermed) ||
@@ -274,7 +274,7 @@ function Medicines(props) {
                             </Button>
                             <div style={{ height: 400, width: '100%' }}>
                                 <DataGrid
-                                    rows={medicines.medicine}
+                                    rows={filtermeddata}
                                     columns={columns}
                                     pageSize={5}
                                     rowsPerPageOptions={[5]}
