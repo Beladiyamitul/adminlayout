@@ -56,7 +56,7 @@ function Medicines(props) {
         setOpen(true);
         console.log(params.row);
         formik.setValues({
-            id : params.id,
+            id: params.id,
             name: params.row.name,
             price: params.row.price,
             quantity: params.row.quantity,
@@ -122,6 +122,12 @@ function Medicines(props) {
         },
         [])
 
+    useEffect(
+        () => {
+            getData();
+        },
+        [medicines.isLoading])
+
     const handleDelete = () => {
         // let removedata = JSON.parse(localStorage.getItem("Medicines"));
 
@@ -130,7 +136,7 @@ function Medicines(props) {
         // localStorage.setItem("Medicines", JSON.stringify(filterdata));
 
         dispatch(deleteMedicin(did))
-        
+
 
         getData();
         setDOpen(false);
@@ -213,7 +219,7 @@ function Medicines(props) {
         // }
         // );
 
-        
+
         // localStorage.setItem("Medicines", JSON.stringify(editdata));
 
         dispatch(updateMedicine(values))

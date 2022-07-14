@@ -12,6 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { doctordata } from '../../Redux/Acton/doctor.action';
 
 
 function Doctor(props) {
@@ -28,6 +30,10 @@ function Doctor(props) {
     const [update , setUpdate] = useState('');
     const [eid , setEid] = useState('');
 
+    const dispatch = useDispatch();
+    const doctor = useSelector(state => state.doctors);
+
+    console.log(doctor.doctor);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -154,10 +160,14 @@ function Doctor(props) {
         if(getDocData !== null){
             setDatadoc(getDocData);
         }
+        // setDatadoc(doctor.doctors);
     }
+
+  
 
     useEffect (
         () =>{
+            dispatch(doctordata())
             getData();
         },
     [])

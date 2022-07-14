@@ -28,13 +28,79 @@
       "price": "30",
       "quantity": "50000",
       "expiry": "2023"
+    },
+    {
+      "id": 124,
+      "name": "demo2",
+      "price": "50",
+      "quantity": "500",
+      "expiry": "2023"
+    },
+    {
+      "id": 585,
+      "name": "demo3",
+      "price": "50",
+      "quantity": "200",
+      "expiry": "2023"
+    },
+    {
+      "id": 454,
+      "name": "demo4",
+      "price": "50",
+      "quantity": "200",
+      "expiry": "2024"
     }
   ],
-  "comments": [
+  "doctors": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postid": 1
+      "id": 104,
+      "name": "Allopurinol",
+      "quantity": 50,
+      "price": 600,
+      "expiry": 2023,
+      "status": true
+    },
+    {
+      "id": 105,
+      "name": "Phenytoin1",
+      "price": "2501",
+      "quantity": "631",
+      "expiry": "20211"
+    },
+    {
+      "id": 489,
+      "name": "dgefjsif",
+      "price": "5",
+      "quantity": "5",
+      "expiry": "1"
+    },
+    {
+      "id": 628,
+      "name": "demo",
+      "price": "30",
+      "quantity": "50000",
+      "expiry": "2023"
+    },
+    {
+      "id": 124,
+      "name": "demo2",
+      "price": "50",
+      "quantity": "500",
+      "expiry": "2023"
+    },
+    {
+      "id": 585,
+      "name": "demo3",
+      "price": "50",
+      "quantity": "200",
+      "expiry": "2023"
+    },
+    {
+      "id": 454,
+      "name": "demo4",
+      "price": "50",
+      "quantity": "200",
+      "expiry": "2024"
     }
   ],
   "profile": {

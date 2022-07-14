@@ -3,6 +3,8 @@ export const DECREMENT = 'DECREMENT'
 
 export const GET_MEDICINE ="GET_MEDICINE"
 
+export const GET_DOCTOR ="GET_DOCTOR"
+
 export const POST_MEDICINE ="POST_MEDICINE"
 
 export const DELETE_MEDICINE ="DELETE_MEDICINE"
@@ -12,4 +14,11 @@ export const UPDATE_MEDICINE ="UPDATE_MEDICINE"
 
 export const LOADING_MEDICINE ="LOADING_MEDICINE"
 
+
+
 export const ERROR_MEDICINE ="ERROR_MEDICINE"
+
+
+
+
+
