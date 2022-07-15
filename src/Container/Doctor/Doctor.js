@@ -155,11 +155,11 @@ function Doctor(props) {
 
 
     const getData = () => {
-        let getDocData =JSON.parse( localStorage.getItem('doctor'));
+        // let getDocData =JSON.parse( localStorage.getItem('doctor'));
 
-        if(getDocData !== null){
-            setDatadoc(getDocData);
-        }
+        // if(getDocData !== null){
+            setDatadoc(doctor.doctor);
+        // }
         // setDatadoc(doctor.doctors);
     }
 
@@ -220,7 +220,7 @@ function Doctor(props) {
             </Button>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={datadoc}
+                    rows={doctor.doctor}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
