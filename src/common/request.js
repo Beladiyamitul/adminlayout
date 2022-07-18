@@ -38,3 +38,15 @@ export const deleteRequest = (path , id) =>{
     
   })
 }
+
+export const putRequest = (path , data) =>{
+  return sendRequest({
+    url : path + data.id,
+    method : 'PUT',
+    data : JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+}
+

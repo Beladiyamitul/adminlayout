@@ -13,7 +13,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDoctordata, deletDoctordata, doctordata } from '../../Redux/Acton/doctor.action';
+import { addDoctordata, deletDoctordata, doctordata, updateDoctordata } from '../../Redux/Acton/doctor.action';
 
 
 function Doctor(props) {
@@ -133,20 +133,22 @@ function Doctor(props) {
     const handleEdit = (values) =>{
         console.log(values)
 
-        let eData = JSON.parse(localStorage.getItem("doctor"));
-        console.log(eData);
+        // let eData = JSON.parse(localStorage.getItem("doctor"));
+        // console.log(eData);
 
-        let editData = eData.map((u) => {
-            if (u.id == eid) {
-                return(
-                    {id: eid , ...values}
-                )
-            }else{
-                return u;
-            }
-        });
+        // let editData = eData.map((u) => {
+        //     if (u.id == eid) {
+        //         return(
+        //             {id: eid , ...values}
+        //         )
+        //     }else{
+        //         return u;
+        //     }
+        // });
 
-        localStorage.setItem("doctor", JSON.stringify(editData));
+        // localStorage.setItem("doctor", JSON.stringify(editData));
+
+        dispatch(updateDoctordata(values))
         getData();
         setOpen(false);
         setUpdate(false);
