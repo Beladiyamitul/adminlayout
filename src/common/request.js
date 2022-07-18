@@ -20,9 +20,21 @@ export const getRequest = (path) =>{
   })
 }
 
-export const getPost = (path) =>{
+export const postRequest = (path , data) =>{
   return sendRequest({
     url : path,
-    method : 'POST'
+    method : 'POST',
+    data : JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+}
+
+export const deleteRequest = (path , id) =>{
+  return sendRequest({
+    url : path + id,
+    method : 'DELETE',
+    
   })
 }

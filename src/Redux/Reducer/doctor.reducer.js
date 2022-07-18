@@ -31,8 +31,38 @@ export const doctorReducer = (state = initalstate, action) => {
                 doctor: action.payload,
                 error: ""
             }
+        case ActionType.POST_DOCTOR:
+            return {
+                ...state,
+                isLoading: false,
+                doctor: state.doctor.concat(action.payload),
+                error: ""
+            }
 
-       
+        case ActionType.DELETE_DOCTOR:
+            return {
+                ...state,
+                isLoading: false,
+                doctor: state.doctor.filter((d, i) => d.id !== action.payload),
+                error: ""
+            }
+
+
+        case ActionType.UPDATE_DOCTOR:
+            return {
+                ...state,
+                isLoading: false,
+                doctor: state.doctor.map((u) => {
+                    if (u.id === action.payload.id) {
+                        return action.payload
+                    } else {
+                        return u
+                    }
+
+                }),
+                error: ""
+            }
+
         case ActionType.ERROR_MEDICINE:
             return {
                 ...state,

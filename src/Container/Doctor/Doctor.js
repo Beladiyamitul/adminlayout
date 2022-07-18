@@ -13,7 +13,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { doctordata } from '../../Redux/Acton/doctor.action';
+import { addDoctordata, deletDoctordata, doctordata } from '../../Redux/Acton/doctor.action';
 
 
 function Doctor(props) {
@@ -107,15 +107,16 @@ function Doctor(props) {
                 experience
             }
 
-            let newdata = JSON.parse(localStorage.getItem("doctor"));
-            console.log(newdata);
+            // let newdata = JSON.parse(localStorage.getItem("doctor"));
+            // console.log(newdata);
 
-            if (newdata == null) {
-                localStorage.setItem('doctor', JSON.stringify([docdata]));
-            } else {
-                newdata.push(docdata)
-                localStorage.setItem('doctor', JSON.stringify(newdata));
-            }
+            // if (newdata == null) {
+            //     localStorage.setItem('doctor', JSON.stringify([docdata]));
+            // } else {
+            //     newdata.push(docdata)
+            //     localStorage.setItem('doctor', JSON.stringify(newdata));
+            // }
+            dispatch(addDoctordata(docdata))
 
             handleClose();
             getData();
@@ -173,11 +174,14 @@ function Doctor(props) {
     [])
 
     const handleDelete = () => {
-        let deldata = JSON.parse(localStorage.getItem("doctor"));
+        // let deldata = JSON.parse(localStorage.getItem("doctor"));
 
-        let filterdata = deldata.filter((r, i) => r.id !== docdid);
+        // let filterdata = deldata.filter((r, i) => r.id !== docdid);
 
-        localStorage.setItem("doctor", JSON.stringify(filterdata));
+        // localStorage.setItem("doctor", JSON.stringify(filterdata));
+
+        dispatch(deletDoctordata(docdid))
+
         getData();
         setDocopen(false);
 
