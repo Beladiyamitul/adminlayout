@@ -57,7 +57,7 @@ export const deletDoctordata = (id) => (dispatch) => {
     dispatch(loadingMedicin())
 
    deleteDoctordata(id)
-        .then((data) => dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.data }))
+        .then((data) => dispatch({ type: Actiontype.DELETE_DOCTOR, payload: id}))
         .catch((error) => dispatch(errorMedicin(error.message)))
  
 
