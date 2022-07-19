@@ -58,7 +58,6 @@ export const doctorReducer = (state = initalstate, action) => {
                     } else {
                         return u
                     }
-
                 }),
                 error: ""
             }

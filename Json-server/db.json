@@ -11,7 +11,7 @@
     {
       "id": 105,
       "name": "Phenytoin12",
-      "price": "2501",
+      "price": "2501adsc",
       "quantity": "631",
       "expiry": "20211"
     },
@@ -62,9 +62,9 @@
     },
     {
       "id": 105,
-      "name": "Mohit",
+      "name": "Mohit11",
       "email": "admin12@gmail.com",
-      "sallery": 8000,
+      "sallery": "80001",
       "post": "manager",
       "experience": "10 Month"
     },
@@ -77,22 +77,6 @@
       "experience": "1.7 year"
     },
     {
-      "id": 517,
-      "name": "demo3",
-      "email": "wsada@gmail.com",
-      "sallery": "5000",
-      "post": "edaa",
-      "experience": "1"
-    },
-    {
-      "id": 165,
-      "name": "demo3",
-      "email": "wsada@gmail.com",
-      "sallery": "50000",
-      "post": "edaa",
-      "experience": "2"
-    },
-    {
       "id": 413,
       "name": "sfsaf",
       "email": "wsada@gmail.com",
@@ -101,12 +85,12 @@
       "experience": "2"
     },
     {
-      "id": 791,
-      "name": "demo7",
-      "email": "zdza@gmial.com",
-      "sallery": "6000",
-      "post": "ffafa",
-      "experience": "6 month"
+      "id": 405,
+      "name": "demo",
+      "email": "rutvigajera27@gamil.com",
+      "sallery": "18000",
+      "post": "gfhfg",
+      "experience": "2"
     }
   ],
   "profile": {

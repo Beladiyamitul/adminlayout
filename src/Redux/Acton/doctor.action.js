@@ -51,10 +51,11 @@ export const deletDoctordata = (id) => (dispatch) => {
 
 
 export const updateDoctordata = (data) => (dispatch) => {
+  console.log(data);
   try {
     dispatch(loadingMedicin())
 
-    updateDoctor(data)
+   return  updateDoctor(data)
         .then((data) => dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data.data}))
         .catch((error) => dispatch(errorMedicin(error.message)))
  

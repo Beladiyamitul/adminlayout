@@ -50,6 +50,7 @@ function Doctor(props) {
         setOpen(true);
 
         formik.setValues({
+            id: params.row.id,
             name: params.row.name,
             email: params.row.email,
             sallery: params.row.sallery,
@@ -149,6 +150,7 @@ function Doctor(props) {
         // localStorage.setItem("doctor", JSON.stringify(editData));
 
         dispatch(updateDoctordata(values))
+        
         getData();
         setOpen(false);
         setUpdate(false);
