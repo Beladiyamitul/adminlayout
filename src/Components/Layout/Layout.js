@@ -29,7 +29,8 @@ export default function Layout({children}) {
 let sidemenu=[
     {label:'Doctor', to:'/doctor' , icon:<LocalHospitalIcon/>},
     {label:'Medicines', to:'/medicines' , icon:<VaccinesIcon/>},
-    {label:'Counter', to:'/counter' , icon:<HourglassTopIcon/>}
+    {label:'Counter', to:'/counter' , icon:<HourglassTopIcon/>},
+    {label:'Promises Example', to:'/promises_example' , icon:<HourglassTopIcon/>}
 
 ]
 
