@@ -32,7 +32,8 @@ let sidemenu=[
     {label:'Counter', to:'/counter' , icon:<HourglassTopIcon/>},
     {label:'Promises Example', to:'/promises_example' , icon:<HourglassTopIcon/>},
     {label:'Usememo Example', to:'/usememo_example' , icon:<HourglassTopIcon/>},
-    {label:'Usecalback Example', to:'/usecalback_example' , icon:<HourglassTopIcon/>}
+    {label:'Usecalback Example', to:'/usecalback_example' , icon:<HourglassTopIcon/>},
+    {label:'Contextapi', to:'/contextapi' , icon:<HourglassTopIcon/>}
 
 ]
 
