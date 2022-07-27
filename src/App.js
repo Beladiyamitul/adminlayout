@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Doctor from "./Container/Doctor/Doctor";
+import './App.css'
 import Medicines from "./Container/Medicines/Medicines";
 import { Provider } from "react-redux";
 import Counter from "./Container/Counter/Counter";
@@ -10,8 +11,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import PromisesExample from "./Container/PromisesExample/PromisesExample";
 import UseMemo from "./Container/UseMemo/UseMemo";
 import UseCallBack from "./Container/UseMemo/UseCallBack";
-import ThemeProvider from "./Container/ContextApi/ThemeProvider";
-import ThemeContextShow from "./Container/ContextApi/ThemeContextShow";
+import { ProviderTheme } from "./Container/ContextApi/ThemeProvider";
+
 
 
 
@@ -24,7 +25,7 @@ function App() {
   return (
     <>
 
-      <ThemeProvider>
+      <ProviderTheme>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <Layout>
@@ -35,7 +36,7 @@ function App() {
                 <Route exact path={'/promises_example'} component={PromisesExample} />
                 <Route exact path={'/usememo_example'} component={UseMemo} />
                 <Route exact path={'/usecalback_example'} component={UseCallBack} />
-                <Route exact path={'/contextapi'} component={ThemeContextShow} />
+             
 
               </Switch>
 
@@ -45,7 +46,7 @@ function App() {
 
         </Provider>
 
-      </ThemeProvider>
+      </ProviderTheme>
 
 
     </>

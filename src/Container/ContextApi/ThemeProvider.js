@@ -13,10 +13,13 @@ const intiVal =  {
 }
 
 
-export const ContextApi = createContext();
+const ContextApi = createContext();
 
 
-function ThemeProvider({children}) {
+
+
+
+export const ProviderTheme =({children}) => {
 
     const [state , dispatch] = useReducer(ThemeReducer , intiVal)
     
@@ -44,4 +47,4 @@ return(
 
 }
 
-export default ThemeProvider;
+export default ContextApi

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -14,9 +14,20 @@ import IconButton from '@mui/material/IconButton';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoctordata, deletDoctordata, doctordata, updateDoctordata } from '../../Redux/Acton/doctor.action';
+import ContextApi from '../ContextApi/ThemeProvider';
 
 
 function Doctor(props) {
+
+    const theme = useContext(ContextApi);
+
+console.log(theme);
+
+   
+        
+       
+ 
+
 
     const [open, setOpen] = useState(false);
     const [docopen, setDocopen] = useState(false);
@@ -221,8 +232,11 @@ function Doctor(props) {
 
 
     return (
-        <div>
+        <div className={`main-bg ${theme.theme}`}>
             <h1>Doctor Data</h1>
+
+            <button onClick={() => theme.toogle_theme(theme.theme)}>Change</button>
+
             <Button variant="outlined" onClick={handleClickOpen}>
                 Empoyee Data
             </Button>
