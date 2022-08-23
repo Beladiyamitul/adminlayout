@@ -102,22 +102,22 @@ console.log(theme);
             }else{
 
             //   alert(JSON.stringify(values, null, 2));
-            const {
-                name,
-                email,
-                sallery,
-                post,
-                experience
-            } = values;
+            // const {
+            //     name,
+            //     email,
+            //     sallery,
+            //     post,
+            //     experience
+            // } = values;
 
-            const docdata = {
-                id: Math.floor(Math.random() * 1000),
-                name,
-                email,
-                sallery,
-                post,
-                experience
-            }
+            // const docdata = {
+            //     id: Math.floor(Math.random() * 1000),
+            //     name,
+            //     email,
+            //     sallery,
+            //     post,
+            //     experience
+            // }
 
             // let newdata = JSON.parse(localStorage.getItem("doctor"));
             // console.log(newdata);
@@ -128,7 +128,7 @@ console.log(theme);
             //     newdata.push(docdata)
             //     localStorage.setItem('doctor', JSON.stringify(newdata));
             // }
-            dispatch(addDoctordata(docdata))
+            dispatch(addDoctordata(values))
 
             handleClose();
             getData();
