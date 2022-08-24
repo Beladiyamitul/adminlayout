@@ -1,17 +1,27 @@
 import { async } from "@firebase/util"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection , getDocs , doc, updateDoc, deleteDoc   } from "firebase/firestore"
 import { deleteDoctor, deleteDoctordata, getDoctordata, postDoctordata, updateDoctor } from "../../common/apis/doctor.api"
 import { db } from "../../firebase"
 import { BASE_URL } from "../../shared/baseUrl"
 import * as Actiontype from "../ActionType"
 
 
-export const doctordata = () => (dispatch) => {
+export const getdocdata = () => async (dispatch) => {
   try {
     dispatch(loadingMedicin())
 
-    getDoctordata()
-      .then((data) => dispatch({ type: Actiontype.GET_DOCTOR, payload: data.data }))
+    const querySnapshot = await getDocs(collection(db, "Doctors"));
+
+    let dataget = [];
+
+    querySnapshot.forEach((doc) => {
+      dataget.push({id: doc.id, ...doc.data()})
+    });
+     dispatch({type:Actiontype.GET_DOCTOR, payload: dataget})
+ 
+
+    // getDoctordata()
+    //   .then((data) => dispatch({ type: Actiontype.GET_DOCTOR, payload: data.data }))
 
   } catch (error) {
     dispatch(errorMedicin(error.message));
@@ -40,13 +50,16 @@ export const addDoctordata = (data) => async (dispatch) => {
 
 
 
-export const deletDoctordata = (id) => (dispatch) => {
+export const deletDoctordata = (id) => async (dispatch) => {
   try {
     dispatch(loadingMedicin())
 
-    deleteDoctor(id)
-        .then((data) => dispatch({ type: Actiontype.DELETE_DOCTOR, payload: id}))
-        .catch((error) => dispatch(errorMedicin(error.message)))
+    await deleteDoc(doc(db, "Doctors", id));
+    dispatch({ type: Actiontype.DELETE_DOCTOR, payload: id})
+
+    // deleteDoctor(id)
+    //     .then((data) => dispatch({ type: Actiontype.DELETE_DOCTOR, payload: id}))
+    //     .catch((error) => dispatch(errorMedicin(error.message)))
  
 
   } catch (error) {
@@ -57,14 +70,27 @@ export const deletDoctordata = (id) => (dispatch) => {
 
 
 
-export const updateDoctordata = (data) => (dispatch) => {
+export const updateDoctordata = (data) => async (dispatch) => {
   console.log(data);
   try {
     dispatch(loadingMedicin())
 
-   return  updateDoctor(data)
-        .then((data) => dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data.data}))
-        .catch((error) => dispatch(errorMedicin(error.message)))
+    const docDataRef = doc(db, "Doctors", data.id);
+      await updateDoc(docDataRef, {
+        name : data.name,
+        email : data.email,
+        sallery : data.sallery,
+        post : data.post,
+        experience : data.experience
+      });
+
+      dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data})
+
+      
+
+  //  return  updateDoctor(data)
+  //       .then((data) => dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data.data}))
+  //       .catch((error) => dispatch(errorMedicin(error.message)))
  
 
   } catch (error) {

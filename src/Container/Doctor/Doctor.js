@@ -13,7 +13,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import IconButton from '@mui/material/IconButton';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDoctordata, deletDoctordata, doctordata, updateDoctordata } from '../../Redux/Acton/doctor.action';
+import { addDoctordata, deletDoctordata, doctordata, getdocdata, getdoctordata, updateDoctordata } from '../../Redux/Acton/doctor.action';
 import ContextApi from '../ContextApi/ThemeProvider';
 
 
@@ -183,7 +183,7 @@ console.log(theme);
 
     useEffect (
         () =>{
-            dispatch(doctordata())
+            dispatch(getdocdata())
             getData();
         },
     [])
