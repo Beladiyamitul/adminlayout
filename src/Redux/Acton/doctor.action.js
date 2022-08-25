@@ -1,7 +1,8 @@
 import { async } from "@firebase/util"
-import { addDoc, collection , getDocs , doc, updateDoc, deleteDoc   } from "firebase/firestore"
+import { addDoc, collection , getDocs , doc, updateDoc, deleteDoc } from "firebase/firestore"
 import { deleteDoctor, deleteDoctordata, getDoctordata, postDoctordata, updateDoctor } from "../../common/apis/doctor.api"
 import { db } from "../../firebase"
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { BASE_URL } from "../../shared/baseUrl"
 import * as Actiontype from "../ActionType"
 
@@ -36,6 +37,17 @@ export const addDoctordata = (data) => async (dispatch) => {
 
     const docRef = await addDoc(collection(db, "Doctors"), data);
     dispatch({type:Actiontype.POST_DOCTOR, payload:{id: docRef.id , ...data}})
+
+
+    const storage = getStorage();
+    const storageRef = ref(storage, 'some-child');
+
+// 'file' comes from the Blob or File API
+
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
     // console.log("Document written with ID: ", docRef.id);
     
     // postDoctordata(data)

@@ -83,7 +83,8 @@ console.log(theme);
         name: yup.string().required("Please enter name"),
         email: yup.string().email("Please enter valid name").required("Please enter name"),
         post: yup.string().required("Please enter Post"),
-        experience: yup.string().required("Please enter experience")
+        experience: yup.string().required("Please enter experience"),
+        file : yup.mixed().required("please upload file")
 
     });
 
@@ -92,11 +93,12 @@ console.log(theme);
             name: '',
             email: '',
             post: '',
-            experience: ''
+            experience: '',
+            file : ''
         },
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-
+console.log(values);
             if (update) {
                 handleEdit(values)   
             }else{
@@ -227,6 +229,7 @@ console.log(theme);
             )
          }
         },
+        // {field: 'file', headerName:'Upload File', width:130},
 
     ];
 
@@ -327,8 +330,25 @@ console.log(theme);
                                 onChange={formik.handleChange}
 
                             />
+
                             {
                                 formik.errors.experience ? <p>{formik.errors.experience}</p> : null
+                            }
+
+                            <input
+                                autoFocus
+                                margin="dense"
+                                type="file"
+                                id="file"
+                                name="file"
+                                label="Upload File"
+                                fullWidth
+                                variant="standard"
+                                onChange={e => formik.setFieldValue('file',  e.target.files[0])}
+
+                            />
+                                 {
+                                formik.errors.file ? <p>{formik.errors.file}</p> : null
                             }
                         </DialogContent>
                         <DialogActions>
