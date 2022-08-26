@@ -1,8 +1,8 @@
 import { async } from "@firebase/util"
 import { addDoc, collection , getDocs , doc, updateDoc, deleteDoc } from "firebase/firestore"
 import { deleteDoctor, deleteDoctordata, getDoctordata, postDoctordata, updateDoctor } from "../../common/apis/doctor.api"
-import { db } from "../../firebase"
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../../firebase"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { BASE_URL } from "../../shared/baseUrl"
 import * as Actiontype from "../ActionType"
 
@@ -35,18 +35,38 @@ export const addDoctordata = (data) => async (dispatch) => {
   try {
     dispatch(loadingMedicin())
 
-    const docRef = await addDoc(collection(db, "Doctors"), data);
-    dispatch({type:Actiontype.POST_DOCTOR, payload:{id: docRef.id , ...data}})
+   
+    const docStorageRef = ref(storage, 'Doctor/' +data.file.name);  
 
 
-    const storage = getStorage();
-    const storageRef = ref(storage, 'some-child');
+    uploadBytes(docStorageRef, data.file)
+    .then((snapshot) => {
+        getDownloadURL(snapshot.ref)
+          .then(async(url) => {
+                const docRef = await addDoc(collection(db, "Doctors"), {
+                  name : data.name,
+                  email : data.email,
+                  sallery : data.sallery,
+                  post : data.post,
+                  experience : data.experience,
+                  url : url
+                });
+                 dispatch({
+                  type:Actiontype.POST_DOCTOR,
+                   payload:{
+                    id: docRef.id ,
+                    name : data.name,
+                    email : data.email,
+                    sallery : data.sallery,
+                    post : data.post,
+                    experience : data.experience,
+                    url : url
+                  }})
 
-// 'file' comes from the Blob or File API
-
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
+          })
     });
+    
+
 
     // console.log("Document written with ID: ", docRef.id);
     

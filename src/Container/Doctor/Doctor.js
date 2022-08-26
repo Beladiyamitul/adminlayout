@@ -98,7 +98,7 @@ console.log(theme);
         },
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-console.log(values);
+
             if (update) {
                 handleEdit(values)   
             }else{
@@ -130,6 +130,11 @@ console.log(values);
             //     newdata.push(docdata)
             //     localStorage.setItem('doctor', JSON.stringify(newdata));
             // }
+
+
+            // console.log(values);
+
+
             dispatch(addDoctordata(values))
 
             handleClose();
@@ -229,7 +234,6 @@ console.log(values);
             )
          }
         },
-        // {field: 'file', headerName:'Upload File', width:130},
 
     ];
 
@@ -344,7 +348,7 @@ console.log(values);
                                 label="Upload File"
                                 fullWidth
                                 variant="standard"
-                                onChange={e => formik.setFieldValue('file',  e.target.files[0])}
+                                onChange={(e) => formik.setFieldValue('file',  e.target.files[0])}
 
                             />
                                  {
