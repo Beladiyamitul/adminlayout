@@ -211,12 +211,17 @@ console.log(theme);
 
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
+        // { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'email', headerName: 'Email', width: 130 },
         { field: 'sallery', headerName: 'Sallery', width: 130 },
         { field: 'post', headerName: 'Post', width: 130 },
         { field: 'experience', headerName: 'Experience', width: 130 },
+        { field: 'file', headerName: 'Image', width: 130,
+            renderCell: (params) => (
+                <img src={params.row.url} width="100" height={100} />
+            )
+        },
         { field: 'action', 
         headerName: 'Action',
          width: 130,
@@ -224,7 +229,7 @@ console.log(theme);
             return (
                 <>
                 
-                <Button startIcon={<DeleteIcon />} onClick={() =>handleDClickOpen(params.id)}></Button>
+                <Button startIcon={<DeleteIcon />} onClick={() =>handleDClickOpen(params.row)}></Button>
                 
                 <IconButton aria-label="edit" onClick={()=>handleClickEditOpen(params)}>
                 <ModeEditIcon />
