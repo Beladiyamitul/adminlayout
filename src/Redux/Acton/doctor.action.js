@@ -121,19 +121,36 @@ export const deletDoctordata = (data) => async (dispatch) => {
 export const updateDoctordata = (data) => async (dispatch) => {
   console.log(data);
   try {
+
     dispatch(loadingMedicin())
 
-    const docDataRef = doc(db, "Doctors", data.id);
-      await updateDoc(docDataRef, {
+    if(typeof data.file === "string"){
+          const docDataRefedit = doc(db, "Doctors", data.id);
+      await updateDoc(docDataRefedit, {
         name : data.name,
         email : data.email,
         sallery : data.sallery,
         post : data.post,
-        experience : data.experience
+        experience : data.experience,
+        FileName:data.FileName,
+        url : data.url
+
       });
 
       dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data})
+    }else{
+      
+      const fileRefdel = ref(storage, 'Doctor/'+ data.FileName);
+    
+      deleteObject(fileRefdel).
+        then(async() => {
+              await deleteDoc(doc(db, "Doctors", data.id));
+        dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.id})
+      })
 
+
+
+    }
       
 
   //  return  updateDoctor(data)

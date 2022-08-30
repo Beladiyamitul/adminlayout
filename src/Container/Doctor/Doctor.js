@@ -67,6 +67,8 @@ console.log(theme);
             sallery: params.row.sallery,
             post: params.row.post,
             experience: params.row.experience,
+            file:params.row.url,
+            url:params.row.url
         })
         setEid(params.id);
         setUpdate(true);
