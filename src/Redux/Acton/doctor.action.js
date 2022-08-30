@@ -116,8 +116,6 @@ export const deletDoctordata = (data) => async (dispatch) => {
 }
 
 
-
-
 export const updateDoctordata = (data) => async (dispatch) => {
   console.log(data);
   try {
