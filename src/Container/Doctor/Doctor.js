@@ -62,14 +62,8 @@ console.log(theme);
         setOpen(true);
 
         formik.setValues({
-            id: params.row.id,
-            name: params.row.name,
-            email: params.row.email,
-            sallery: params.row.sallery,
-            post: params.row.post,
-            experience: params.row.experience,
-            file:params.row.url,
-            url:params.row.url
+            ...params.row,
+            file:params.row.url
         })
         setEid(params.id);
         setUpdate(true);

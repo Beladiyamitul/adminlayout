@@ -36,8 +36,6 @@ export const addDoctordata = (data) => async (dispatch) => {
     dispatch(loadingMedicin())
 
     const randomName = Math.floor(Math.random()*1000000000).toString();
-
-   
     const docStorageRef = ref(storage, 'Doctor/'+randomName);  
 
 
@@ -121,9 +119,9 @@ export const updateDoctordata = (data) => async (dispatch) => {
   try {
 
     dispatch(loadingMedicin())
+    const docDataRefedit = doc(db, "Doctors", data.id);
 
     if(typeof data.file === "string"){
-          const docDataRefedit = doc(db, "Doctors", data.id);
       await updateDoc(docDataRefedit, {
         name : data.name,
         email : data.email,
@@ -138,16 +136,38 @@ export const updateDoctordata = (data) => async (dispatch) => {
       dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data})
     }else{
       
-      const fileRefdel = ref(storage, 'Doctor/'+ data.FileName);
+      const fileRefupdate = ref(storage, 'Doctor/'+ data.FileName);
     
-      deleteObject(fileRefdel).
+      deleteObject(fileRefupdate).
         then(async() => {
-              await deleteDoc(doc(db, "Doctors", data.id));
-        dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.id})
+
+          const randomName = Math.floor(Math.random()*1000000000).toString();
+          const docStorageins = ref(storage, 'Doctor/'+randomName);  
+      
+      
+          uploadBytes(docStorageins, data.file)
+          .then((snapshot) => {
+              getDownloadURL(snapshot.ref)
+                .then(async(url) => {
+                  await updateDoc(docDataRefedit, {
+                    name : data.name,
+                    email : data.email,
+                    sallery : data.sallery,
+                    post : data.post,
+                    experience : data.experience,
+                    FileName:randomName,
+                    url : url
+            
+                  });
+            
+                  dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: {...data ,  FileName:randomName,
+                    url : url}})
+                })
       })
 
 
 
+      })
     }
       
 
